@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tabela com Células Mescladas</title>
+    <style>
+        table {
+            width: 50svw;
+            height: 40svh;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        #btnIgual {
+            background-color: cornflowerblue;
+            color: white;
+        }
+
+        #textBox {
+            width: 100%;
+            height: 100%;
+            font-size: large;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table>
+        <tr>
+            <td colspan="4">
+                <input type="text" id="textBox" disabled>
+            </td>
+
+        </tr>
+        <tr>
+            <th id="btnMais">+</th>
+            <th id="btnMenos">-</th>
+            <th id="btnVezes">x</th>
+            <th id="btnDiv">÷</th>
+        </tr>
+        <tr>
+            <td id="btn7">7</td>
+            <td id="btn8">8</td>
+            <td id="btn9">9</td>
+            <td rowspan="4" id="btnIgual">=</td>
+        </tr>
+        <tr>
+            <td id="btn4">4</td>
+            <td id="btn5">5</td>
+            <td id="btn6">6</td>
+        </tr>
+        <tr>
+            <td id="btn1">1</td>
+            <td id="btn2">2</td>
+            <td id="btn3">3</td>
+        </tr>
+        <tr>
+            <td id="btn0">0</td>
+            <td id="btnPonto">.</td>
+            <td id="btnLimpar">C</td>
+        </tr>
+    </table>
+
+    <script>
+        tela = document.getElementById('textBox');
+
+        //utilizei a arrow funcion pois preciso passar o paramentro de text p incrementar o textbox
+
+        document.getElementById('btn0').addEventListener('click', () => tela.value += '0');
+        document.getElementById('btn1').addEventListener('click', () => tela.value += '1');
+        document.getElementById('btn2').addEventListener('click', () => tela.value += '2');
+        document.getElementById('btn3').addEventListener('click', () => tela.value += '3');
+        document.getElementById('btn4').addEventListener('click', () => tela.value += '4');
+        document.getElementById('btn5').addEventListener('click', () => tela.value += '5');
+        document.getElementById('btn6').addEventListener('click', () => tela.value += '6');
+        document.getElementById('btn7').addEventListener('click', () => tela.value += '7');
+        document.getElementById('btn8').addEventListener('click', () => tela.value += '8');
+        document.getElementById('btn9').addEventListener('click', () => tela.value += '9');
+        document.getElementById('btnPonto').addEventListener('click', () => tela.value += '.');
+        document.getElementById('btnMais').addEventListener('click', () => tela.value += '+');
+        document.getElementById('btnMenos').addEventListener('click', () => tela.value += '-');
+        document.getElementById('btnVezes').addEventListener('click', () => tela.value += '*');
+        document.getElementById('btnDiv').addEventListener('click', () => tela.value += '/');
+        document.getElementById('btnLimpar').addEventListener('click', () => tela.value = '');
+        
+        //utilizei apenas a referencia ao metodo pq nao passo parametro algum, apenas calculo a expressao
+        document.getElementById('btnIgual').addEventListener('click', () => exibeResultado);
+
+        function exibeResultado(){
+            try {
+                tela.value = eval(tela.value)
+            } catch {
+                tela.value = 'Erro'
+            }
+        }
+    </script>
+
+</body>
+
+</html>
