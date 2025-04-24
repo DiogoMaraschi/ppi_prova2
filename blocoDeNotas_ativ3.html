@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloco de Notas</title>
+
+    <style>
+        body {
+            background-color: darkgray;
+        }
+
+        .menu {
+            width: 30%;
+            height: 95svh;
+            border-radius: 5px;
+            background-color: beige;
+        }
+
+        .inputList {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        #btnAdd {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 2.2rem;
+            margin-top: 10px;
+        }
+
+        #btnDel {
+            width: 200px;
+            height: 60px;
+            border-radius: 40px;
+            font-size: 1.7rem;
+            margin-top: 10px;
+        }
+
+        .listaNotas {}
+
+        #nota {
+            width: 90%;
+            padding-left: 5%;
+            border-bottom: 1px solid grey;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu">
+        <div class="inputList">
+            <input type="button" value="+" id="btnAdd">
+            <input type="button" value="Excluir Nota" id="btnDel">
+        </div>
+        <div class="listaNotas">
+            <div id="nota">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam quaerat eveniet explicabo ipsam,
+                    deleniti officiis. Nostrum error provident dignissimos itaque? Recusandae excepturi nesciunt optio
+                    eius fugit consequuntur id impedit illum!</p>
+            </div>
+
+        </div>
+    </div>
+
+
+</body>
+
+</html>
