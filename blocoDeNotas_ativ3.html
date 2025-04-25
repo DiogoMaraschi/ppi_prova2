@@ -11,9 +11,14 @@
             background-color: darkgray;
         }
 
+        .main {
+            display: flex;
+        }
+
         .menu {
             width: 30%;
-            height: 95svh;
+            height: 100%;
+            min-height: 90svh;
             border-radius: 5px;
             background-color: beige;
         }
@@ -21,6 +26,8 @@
         .inputList {
             display: flex;
             justify-content: space-evenly;
+            padding: 10px;
+            border-bottom: 1px solid grey;
         }
 
         #btnAdd {
@@ -42,29 +49,90 @@
         .listaNotas {}
 
         #nota {
-            width: 90%;
+            padding-right: 5%;
             padding-left: 5%;
             border-bottom: 1px solid grey;
+        }
+
+        .notaAberta {
+            margin-left: 50px;
+            margin-top: 90px;
+            width: 65%;
+            height: 70svh;
+            border-radius: 5px;
+            background-color: beige;
+        }
+
+        #campoNota {
+            padding: 15px;
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+            border: none;
+            background-color: beige;
+            font-size: 2rem;
         }
     </style>
 </head>
 
 <body>
-    <div class="menu">
-        <div class="inputList">
-            <input type="button" value="+" id="btnAdd">
-            <input type="button" value="Excluir Nota" id="btnDel">
-        </div>
-        <div class="listaNotas">
-            <div id="nota">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam quaerat eveniet explicabo ipsam,
-                    deleniti officiis. Nostrum error provident dignissimos itaque? Recusandae excepturi nesciunt optio
-                    eius fugit consequuntur id impedit illum!</p>
+    <div class="main">
+        <div class="menu">
+            <div class="inputList">
+                <input type="button" value="+" id="btnAdd">
+                <input type="button" value="Excluir Nota" id="btnDel">
             </div>
-
+            <div class="listaNotas">
+               
+            </div>
+        </div>
+        <div class="notaAberta">
+            <input type="text" name="campoNota" id="campoNota">
         </div>
     </div>
 
+    <script>
+        campoTexto = document.querySelector('#campoNota');
+
+        notasObj = [
+            { id: 0, texto: "Estudar JavaScript" },
+            { id: 1, texto: "Ler um capítulo do livro" },
+            { id: 2, texto: "Fazer exercícios" }
+        ];
+
+        localStorage.setItem("listaNotas", JSON.stringify(notasObj));
+
+        //notasSalvas = JSON.parse(localStorage.getItem("listaNotas"));
+
+        //console.log(notasSalvas);
+        //console.log(notasSalvas[1].texto);
+
+        document.querySelector('#btnAdd').addEventListener('click', addNota);
+       // console.log(notasSalvas.length);
+
+        function addNota(){
+            notasSalvas = JSON.parse(localStorage.getItem("listaNotas")); //pega o json do localstorage e transforma num objeto
+            novaNota = { id: notasSalvas.length+1, texto: campoTexto.value };
+            notasSalvas.push(novaNota); //add no array
+            localStorage.setItem("listaNotas", JSON.stringify(notasSalvas)); //salva no storage
+
+            document.querySelector('.listaNotas').innerHTML = addNaLista(notasSalvas);
+
+            console.log(notasSalvas);
+        }
+
+        function addNaLista(nota) {
+                nota.array.forEach(element => {
+                    str = `
+                <div id="nota">
+                    <p>${nota.texto}</p>
+                </div>
+                `
+                return str;
+                });
+                
+            }
+    </script>
 
 </body>
 
