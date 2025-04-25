@@ -63,7 +63,7 @@
             background-color: beige;
         }
 
-        #campoNota {
+        .campoNota {
             padding: 15px;
             width: 100%;
             height: 100%;
@@ -87,12 +87,12 @@
             </div>
         </div>
         <div class="notaAberta">
-            <input type="text" name="campoNota" id="campoNota">
+            <input type="text" name="campoNota" class="campoNota">
         </div>
     </div>
 
     <script>
-        campoTexto = document.querySelector('#campoNota'); //pega referencia do campo de texto
+        campoTexto = document.querySelector('.campoNota'); //pega referencia do campo de texto
 
         notasObj = [
             { id: 0, texto: "Estudar JavaScript" },
@@ -137,12 +137,29 @@
             divsNota.forEach(element => {
                 element.addEventListener("click", () => {
                     campoTexto.value = element.querySelector("p").textContent; // atribuo o valor do campo de texto referente a p de cada .nota
+                    campoTexto.id = element.id;
                 });
             });
         }
 
-        function excluiNota(){
-            
+        document.querySelector('#btnDel').addEventListener('click', excluiNota); //chamada para botao deletar
+
+        function excluiNota() {
+            notasSalvas = JSON.parse(localStorage.getItem("listaNotas")); //pega o json do localstorage e transforma num objeto
+            notasSalvas.forEach(element => {
+                if (element.id == campoTexto.id) {
+                    console.log("id igual "+element.id)
+                }
+                
+            });
+            //cheguei ate aqui
+            notasSalvas.push(novaNota); //add no array
+            localStorage.setItem("listaNotas", JSON.stringify(notasSalvas)); //salva no storage
+
+            limpaLista();
+
+            mostraLista(notasSalvas);
+            selecionaNota(); //tive que colocar o metodo aqui pq fora do metodo a div .nota nao estava no dom, logo nao teria event de click
         }
     </script>
 
