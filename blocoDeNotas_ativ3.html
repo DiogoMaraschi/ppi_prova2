@@ -116,22 +116,30 @@
             notasSalvas.push(novaNota); //add no array
             localStorage.setItem("listaNotas", JSON.stringify(notasSalvas)); //salva no storage
 
-            document.querySelector('.listaNotas').innerHTML = addNaLista(notasSalvas);
+            limpaLista();
 
-            console.log(notasSalvas);
+            mostraLista(notasSalvas);
         }
 
-        function addNaLista(nota) {
-                nota.array.forEach(element => {
-                    str = `
+        function mostraLista(notaArray) {
+            notaArray.forEach(element => {
+                console.log(element.texto);
+                document.querySelector('.listaNotas').innerHTML += 
+                `
                 <div id="nota">
-                    <p>${nota.texto}</p>
+                    <p>${element.texto}</p>
                 </div>
                 `
-                return str;
-                });
-                
-            }
+            });
+        }
+
+        function limpaLista() {
+            document.querySelector('.listaNotas').innerHTML = null
+        }
+
+        function selecionaNota(){
+            
+        }
     </script>
 
 </body>
