@@ -48,7 +48,7 @@
 
         .listaNotas {}
 
-        #nota {
+        .nota {
             padding-right: 5%;
             padding-left: 5%;
             border-bottom: 1px solid grey;
@@ -83,7 +83,7 @@
                 <input type="button" value="Excluir Nota" id="btnDel">
             </div>
             <div class="listaNotas">
-               
+
             </div>
         </div>
         <div class="notaAberta">
@@ -92,7 +92,7 @@
     </div>
 
     <script>
-        campoTexto = document.querySelector('#campoNota');
+        campoTexto = document.querySelector('#campoNota'); //pega referencia do campo de texto
 
         notasObj = [
             { id: 0, texto: "Estudar JavaScript" },
@@ -100,33 +100,28 @@
             { id: 2, texto: "Fazer exercícios" }
         ];
 
-        localStorage.setItem("listaNotas", JSON.stringify(notasObj));
+        localStorage.setItem("listaNotas", JSON.stringify(notasObj)); //cria o localstorage para nao dar erro por ser null
 
-        //notasSalvas = JSON.parse(localStorage.getItem("listaNotas"));
+        document.querySelector('#btnAdd').addEventListener('click', addNota); //chamada para botao adicionar +
 
-        //console.log(notasSalvas);
-        //console.log(notasSalvas[1].texto);
-
-        document.querySelector('#btnAdd').addEventListener('click', addNota);
-       // console.log(notasSalvas.length);
-
-        function addNota(){
+        function addNota() {
             notasSalvas = JSON.parse(localStorage.getItem("listaNotas")); //pega o json do localstorage e transforma num objeto
-            novaNota = { id: notasSalvas.length+1, texto: campoTexto.value };
+            novaNota = { id: notasSalvas.length, texto: campoTexto.value };
             notasSalvas.push(novaNota); //add no array
             localStorage.setItem("listaNotas", JSON.stringify(notasSalvas)); //salva no storage
 
             limpaLista();
 
             mostraLista(notasSalvas);
+            selecionaNota(); //tive que colocar o metodo aqui pq fora do metodo a div .nota nao estava no dom, logo nao teria event de click
         }
 
         function mostraLista(notaArray) {
             notaArray.forEach(element => {
                 console.log(element.texto);
-                document.querySelector('.listaNotas').innerHTML += 
-                `
-                <div id="nota">
+                document.querySelector('.listaNotas').innerHTML +=
+                    `
+                <div class="nota"id="${element.id}">
                     <p>${element.texto}</p>
                 </div>
                 `
@@ -137,7 +132,16 @@
             document.querySelector('.listaNotas').innerHTML = null
         }
 
-        function selecionaNota(){
+        function selecionaNota() {
+            divsNota = document.querySelectorAll(".nota"); //seleciono o que contem classe .nota no dom, no caso as divs
+            divsNota.forEach(element => {
+                element.addEventListener("click", () => {
+                    campoTexto.value = element.querySelector("p").textContent; // atribuo o valor do campo de texto referente a p de cada .nota
+                });
+            });
+        }
+
+        function excluiNota(){
             
         }
     </script>
