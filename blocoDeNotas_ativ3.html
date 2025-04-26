@@ -104,6 +104,10 @@
 
         document.querySelector('#btnAdd').addEventListener('click', addNota); //chamada para botao adicionar +
 
+        function editaNota(){
+            
+        }
+
         function addNota() {
             notasSalvas = JSON.parse(localStorage.getItem("listaNotas")); //pega o json do localstorage e transforma num objeto
             maior = 0;
