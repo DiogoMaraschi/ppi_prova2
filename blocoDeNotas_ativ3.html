@@ -106,7 +106,16 @@
 
         function addNota() {
             notasSalvas = JSON.parse(localStorage.getItem("listaNotas")); //pega o json do localstorage e transforma num objeto
-            novaNota = { id: notasSalvas.length, texto: campoTexto.value };
+            maior = 0;
+
+            for (let i = 1; i < notasSalvas.length; i++) {
+                if (Number(notasSalvas[i].id) > maior) {
+                    maior = notasSalvas[i].id++; // atualiza se encontrar valor maior
+                    console.log(maior + " valor é esse")
+                }
+            }
+
+            novaNota = { id: maior, texto: campoTexto.value };
             notasSalvas.push(novaNota); //add no array
             localStorage.setItem("listaNotas", JSON.stringify(notasSalvas)); //salva no storage
 
@@ -118,7 +127,6 @@
 
         function mostraLista(notaArray) {
             notaArray.forEach(element => {
-                console.log(element.texto);
                 document.querySelector('.listaNotas').innerHTML +=
                     `
                 <div class="nota"id="${element.id}">
@@ -130,6 +138,10 @@
 
         function limpaLista() {
             document.querySelector('.listaNotas').innerHTML = null
+        }
+
+        function limpaCampo() {
+            campoTexto.value = "";
         }
 
         function selecionaNota() {
@@ -145,21 +157,23 @@
         document.querySelector('#btnDel').addEventListener('click', excluiNota); //chamada para botao deletar
 
         function excluiNota() {
-            notasSalvas = JSON.parse(localStorage.getItem("listaNotas")); //pega o json do localstorage e transforma num objeto
-            notasSalvas.forEach(element => {
-                if (element.id == campoTexto.id) {
-                    console.log("id igual "+element.id)
-                }
-                
-            });
-            //cheguei ate aqui
-            notasSalvas.push(novaNota); //add no array
-            localStorage.setItem("listaNotas", JSON.stringify(notasSalvas)); //salva no storage
+            resposta = confirm("Voce tem certeza?");
 
-            limpaLista();
+            if (resposta) {
+                notasSalvas = JSON.parse(localStorage.getItem("listaNotas")); //pega o json do localstorage e transforma num objeto
+                notasSalvas.forEach(element => {
+                    if (element.id == campoTexto.id) {
+                        notasSalvas.splice(element.id, 1);
+                        localStorage.setItem("listaNotas", JSON.stringify(notasSalvas)); //salva no storage
+                        limpaLista();
+                        limpaCampo();
+                        mostraLista(notasSalvas);
+                        selecionaNota();
+                    }
 
-            mostraLista(notasSalvas);
-            selecionaNota(); //tive que colocar o metodo aqui pq fora do metodo a div .nota nao estava no dom, logo nao teria event de click
+                });
+            }
+
         }
     </script>
 
